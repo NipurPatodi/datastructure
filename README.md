@@ -1,4 +1,4 @@
-#Data Structure
+# Data Structure #
 
 Repo for systematic way to revise DS and Algo
 This Repo host commonly asked question with list of trick ones.

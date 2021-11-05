@@ -1,0 +1,31 @@
+package org.dreambig.ds.string.practice.easy;
+import org.dreambig.ds.picker.IQuestion;
+
+import java.util.*;
+
+public class Template implements IQuestion {
+  @Override
+  public String getQuestion(){
+    return "";
+  }
+  @Override
+  public  List<String> getCompanies() {
+    String []c=" ".split(" ");
+    return Arrays.asList(c);
+  }
+
+  @Override
+  public String getThingsToRemember() {
+      return "";
+      }
+      }
+
+
+
+
+
+
+
+
+
+}
