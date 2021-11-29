@@ -87,7 +87,7 @@ int board[][] = { { 0, 0, 0, 0 },
 
         printBoard(board,4);
         println ("Before");
-        if (solveNQUtil(board, 0) == false) {
+        if (!solveNQUtil(board, 0) ) {
             System.out.print("Solution does not exist");
             return false;
         }

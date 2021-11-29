@@ -21,7 +21,7 @@ public class StepForKnights implements IQuestion {
 
     @Override
     public List<String> getCompanies() {
-        return Arrays.asList("linkedin.md".split(" "));
+        return Arrays.asList("linkedin".split(" "));
     }
 
     @Override

@@ -10,10 +10,11 @@ private static void swap(int [] arr, int p1, int p2){
 
 
 private static  int  partition (int[] arr, int start, int end){
-int pivot= arr[end];
+int pivot= arr[end]; // this is last element in array
+
 int ctr= start;
 
-  for ( int i=start; i <end -1 ; i++){
+  for ( int i=start; i <end -1 ; i++){ // iterate from start till end
     // Now comparing each element from start
         if(arr[i]<=pivot){
         // swap i with ctr

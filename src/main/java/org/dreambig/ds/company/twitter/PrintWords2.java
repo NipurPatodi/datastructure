@@ -31,7 +31,7 @@ public class PrintWords2 {
         dictionary.add("am");
         dictionary.add("don");
         List<String> store = new ArrayList<String>();
-        instance.printWords("iamadon", store, dictionary);
+        instance.printWords("iamamdon", store, dictionary);
         for(int i = store.size() - 1; i >= 0; --i) {
             System.out.println(store.get(i));
         }

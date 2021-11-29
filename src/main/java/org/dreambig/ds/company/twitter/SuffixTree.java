@@ -56,8 +56,8 @@ public class SuffixTree {
      }
 
     public static void main(String[] args) {
-        SuffixTree tree= new SuffixTree("I am Nipur Patodi.");
-        tree.search("i");
+        SuffixTree tree= new SuffixTree("I am Nipur PatodiNip.");
+        tree.search("Nip");
     }
 
 

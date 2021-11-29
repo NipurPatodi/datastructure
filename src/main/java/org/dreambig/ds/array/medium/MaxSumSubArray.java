@@ -7,7 +7,7 @@ public class MaxSumSubArray {
       long maxEndHere=0;
 
       for ( int i =0; i<arr.length;i++){
-        maxEndHere+=arr[i];
+        maxEndHere+=arr[i]; // tricky
         if(maxSoFar<maxEndHere){
           maxSoFar=maxEndHere;
         }
@@ -22,7 +22,7 @@ public class MaxSumSubArray {
 
       public static void main (String ... arg){
 
-        int []ip={1,2,3,4,-4,0,10};
+        int []ip={-2,1,-3,4,-1,2,1,-5,4};
         System.out.println(getMaxSumSubArray(ip));
 
       }

@@ -9,18 +9,18 @@ public class CombinationOf3 {
     Arrays.sort(arr);
     for (int a=0;a<arr.length;a++){
 
-      int b=a+1;
-      int c=arr.length -1;
+      int b=a+1; // just next
+      int c=arr.length -1; // last one
       while( b<c){
        if(arr[a]+arr[b]+arr[c]==sum){
         System.out.println(arr[a]+" "+arr[b]+" "+arr[c]);
-        b++;
+        b++; // increment B
         c--; // explore other option
        }
-       else if(arr[a]+arr[b]+arr[c]>sum) {
+       else if(arr[a]+arr[b]+arr[c]>sum) { // reduce c
         c--;
        }
-       else if(arr[a]+arr[b]+arr[c]<sum) {
+       else if(arr[a]+arr[b]+arr[c]<sum) { // increase B
         b++;
        }
       }

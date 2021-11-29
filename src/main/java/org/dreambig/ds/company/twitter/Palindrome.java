@@ -41,18 +41,24 @@ public class Palindrome {
 
 
   private static  int [] computeLps(String pattern){
-  int[] lps = new int[pattern.length()];
+  int[] lps = new int[pattern.length()];  //LPS array is alway equal to pattern
+
+
   int i=0;
   int j=1;
-  lps[0]=0;
-  char[]token=pattern.toCharArray();
+
+  lps[0]=0; // zero is always zero
+  char[]token=pattern.toCharArray(); // String to array
+
   while (j< token.length){
-    if (token[i]!=token[j] ){
-      if(i==0){
+    if (token[i]!=token[j] ){ // if previous and current are not same
+      if(i==0){ // if prev was zero , make current zero and increment
         lps[j]=0;
         j++;
       }else{
-        i=lps[i-1];
+        i=lps[i-1]; // else move previous to lps[i-1] //
+          // this is tricky , now  j is not incremented
+          // Please note that lps idx variable is not j but i
       }
     }
     else { // if both match
@@ -67,8 +73,8 @@ public class Palindrome {
 
 public static String convertToPalindrome(String input){
     StringBuilder sb= new StringBuilder(input);
-    String payload= sb.toString()+"$"+sb.reverse().toString(); // n
-    int [] lps= computeLps(payload);  //n
+    String payload= sb.toString()+"$"+sb.reverse().toString(); // appending String to itself with delimiter
+    int [] lps= computeLps(payload);  // lps of this string
     int maxPrefix = input.length() - lps[lps.length-1];
     StringBuilder res=new StringBuilder();
     char[]tokens= input.toCharArray();

@@ -33,15 +33,15 @@ public class TicketSeller implements IQuestion {
     }
 
    public int getMaxEarn(int N, int K, int [] A){
-        PriorityQueue<Integer>q= new PriorityQueue<>(Comparator.reverseOrder());
+        PriorityQueue<Integer>maxHeap= new PriorityQueue<>(Comparator.reverseOrder());
         for ( int i =0;i<N;i++)
-            q.add(A[i]);
+            maxHeap.add(A[i]);
 
         int sum=0;
         for (int i=0;i<K;i++){
-            int tmp=q.remove();
+            int tmp=maxHeap.remove();
             sum+=tmp;
-            q.add(tmp-1);
+            maxHeap.add(tmp-1);// this need to be added
         }
         return sum;
     }

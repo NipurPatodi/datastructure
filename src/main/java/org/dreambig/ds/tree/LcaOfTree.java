@@ -27,10 +27,14 @@ public Node (int data){
 private boolean findPath(List<Integer> path, Node root, final int data){
   if(root ==null)
     return  false;
+
+
   if(root.left!=null && findPath(path,root.left,data) || (root.right!=null && findPath(path,root.right,data))){
   path.add(root.data);
   return true;
   }
+
+
  if (root.data==data){
     path.add(data);
     return true;
@@ -56,7 +60,7 @@ public int getLCA ( int data1, int data2, Node root){
   int ptr2= p2.size()-1;
   int res=-1;
 
-  while(ptr1>=0 &&ptr2>=0)
+  while(ptr1>=0 &&ptr2>=0) // Iterating in reverse order   and stop when match found
   {
     if(p1.get(ptr1)!= p2.get(ptr2))
       return res;
@@ -76,11 +80,11 @@ public Node getLCAoptimized(Node root, int d1, int d2){
   if(root==null)
     return  root;
 
-  if( root.data==d1|| root.data==d2){
+  if( root.data==d1|| root.data==d2){ // if any of data is in root then that is LCA
     return root;
   }
 
-  Node lTree= getLCAoptimized(root.left,d1,d2);
+  Node lTree= getLCAoptimized(root.left,d1,d2); // searching left and right sub tree
   Node rTree= getLCAoptimized(root.right,d1,d2);
 
   if(lTree!=null && rTree!=null){

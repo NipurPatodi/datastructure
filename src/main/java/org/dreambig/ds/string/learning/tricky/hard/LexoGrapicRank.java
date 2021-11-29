@@ -1,4 +1,4 @@
-package org.dreambig.ds.string.learning.tricky.medium;
+package org.dreambig.ds.string.learning.tricky.hard;
 /***
 WAP to find Lexographic Rank of String if orderes in sorted Way
 ip=BAC

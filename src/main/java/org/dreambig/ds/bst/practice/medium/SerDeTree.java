@@ -50,6 +50,7 @@ public class SerDeTree implements IQuestion {
     }
 
     private void serialize(Node root, List<Integer> a){
+        //preOrder Traversal
         // if root is null still add -1 to a
         if(null==root){
             a.add(-1);

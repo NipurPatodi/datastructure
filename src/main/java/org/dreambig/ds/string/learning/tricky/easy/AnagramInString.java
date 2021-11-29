@@ -31,7 +31,7 @@ public class  AnagramInString{
 
 public static void main(String[] args) {
 
-    System.out.println(exist("I love dataStructure", "rock"));
+    System.out.println(exist("I love dataStructure", "taaS"));
 }
 
 
