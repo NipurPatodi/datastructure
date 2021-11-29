@@ -1,12 +1,16 @@
 # Data Structure #
 
-Repo for systematic way to revise DS and Algo
-This Repo host commonly asked question with list of trick ones.
+Repo for systematic way to revise DS ,Algo, System design and learnings
 
 [If you want to shine like SUN first burn like SUN](https://en.wikipedia.org/wiki/A._P._J._Abdul_Kalam#/media/File:A._P._J._Abdul_Kalam.jpg)
 
-## Tricky ones ##
+###Use program to practice###
+```java
+org.dreambig.ds.picker.RandomQuestionRetreiver
+```
 
-* TREE 
-    1.  ```org.dreambig.ds.tree.OptimizedLCA.java```
-    2. ```org.dreambig.ds.tree.TreeView.java ```
+### Thought of the day ###
+
+Nothing in this world is permanent.
+Even your failure ...
+
