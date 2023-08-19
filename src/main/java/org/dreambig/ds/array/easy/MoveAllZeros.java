@@ -36,6 +36,7 @@ public class MoveAllZeros implements IQuestion {
       int n = arr.length;
       int ctr=0;
       for ( int i=0;i<n;i++){
+          //looping all
             if(arr[i]!=0){
               arr[ctr]=arr[i];
               ctr++;
