@@ -65,7 +65,7 @@ so (2n-1) iteration  and each iteration some assignment only so theta(1)\
 so complexity is (2n-1)Xtheta(1)
 or Big O(n) which is much better than exponential
 
-![img.png](../img/img_12.png)
+![img.png](../../src/main/resources/img/img_12.png)
 > This is top Down\
 > **Dimension of mem array** = no. of parameter changing\
 > **Size of Mem Array** = Max possible value idx +1
