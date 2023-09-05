@@ -1,0 +1,8 @@
+https://www.interviewbit.com/aws-interview-questions/?sign_up_medium=ib_article_auth_blocker/
+
+CloudFront  (CDN )-> GEO TARGETING to serve content based on geo
+IAM (Identity and access management) -> With IAM, you can create roles with specific access-levels and assign the roles to the users.
+
+Instance Store Volume: As soon as the instance is turned off, the Instance Store Volume gets removed and the data gets deleted.
+EBS: The data stored in an EBS Volume will be available even after the instance is turned off.
+
