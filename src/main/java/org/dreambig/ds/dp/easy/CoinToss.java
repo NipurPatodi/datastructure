@@ -91,10 +91,52 @@ public class CoinToss implements IQuestion {
         return mem;
     }
 
+    /***
+     * Revision
+     */
+     int getCoin(int [] coin, int idx, int currSum){
+        if(idx>=coin.length||currSum<0 )
+            return 0;
+        if(currSum==0){
+            return 1;
+        }
+
+         // Include element and reduce sum or don't include it and let sum as is
+        return getCoin(coin, idx, currSum-coin[idx])+ getCoin(coin, idx+1, currSum) ;
+    }
+
+    int getCoinMem(int [] coin, int idx, int currSum, int[][] cache){
+        if(idx>=coin.length|| currSum<0 )
+            return 0;
+        if(currSum==0){
+            cache[idx][currSum]=1;
+            return 1;
+        }
+
+        // Include element and reduce sum or don't include it and let sum as is
+        int diff=currSum-coin[idx];
+        if (diff >=0 && cache[idx][diff]==-1 ){
+            cache[idx][diff] = getCoin(coin, idx, currSum-coin[idx])+ getCoin(coin, idx+1, currSum);
+        }
+        return cache[idx][diff];
+    }
+
+    int getCoinCountCombination( int[] coin, int sum){
+        int [][] cache = new int [coin.length][sum];
+        for (int r=0; r<cache.length;r++){
+            for (int c=0;c<cache[0].length;c++){
+                cache[r][c]=-1;
+            }
+        }
+        return getCoinMem(coin,0, sum, cache);
+    }
+
+
     public static void main(String[] args) {
-        int [] coins= {2,5,3,6};
-        int sum =10;
+        int [] coins= {1,2,3};
+        int sum =4;
         CoinToss obj= new CoinToss();
+        /*
         System.out.println(obj.getCoinToss(coins,coins.length,sum));
 
         int [] coins2= {1,2,3};
@@ -104,6 +146,10 @@ public class CoinToss implements IQuestion {
 
         System.out.println(obj.getCoinToss_TabApr(coins,sum));
         System.out.println(obj.getCoinToss_TabApr(coins2,sum2));
+        */
+        //System.out.println(obj.getCoin(coins,0,sum));
+        System.out.println(obj.getCoinCountCombination(coins,sum));
+
     }
 
 }

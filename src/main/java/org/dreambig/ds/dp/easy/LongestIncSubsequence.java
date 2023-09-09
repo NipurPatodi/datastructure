@@ -90,20 +90,78 @@ public class LongestIncSubsequence implements IQuestion {
 
     }
 
+    //Revision
+    int getLongestSubSeq(int [] ip){
+        int [] lis= new int [ip.length];
+        lis[0]=1;
+        for (int i=1;i<ip.length;i++){
+            int maxLis=0;
+            for (int j=i-1; j>=0;j--){
+                if (ip[j]<ip[i]){
+                    maxLis=Math.max(lis[j],maxLis);
+                }
+            }
+            lis[i]=maxLis+1;
+        }
+        int res=1;
+        for (int i=1;i<lis.length;i++) res=Math.max(res, lis[i]);
+
+        return res;
+
+    }
+    // revision nlogn solution
+    int binarySearch(int[] ip, int payload, int s, int e){
+        while(s<e){
+            int mid=s+(e-s)/2;
+            if(ip[mid]>=payload)
+                e=mid;
+            else
+                s=mid+1;
+        }
+        return e;
+    }
+
+    int getLongestSubSeqNlogN(int [] ip){
+      // First we need to track LIS Array
+        int[] lis = new int [ip.length];
+        lis[0]= ip[0];
+        int ctr=1;
+        // Now we will iterate all element and find LIS
+        // Please note that result is finally sum of length of array
+        for (int i=1;i<ip.length;i++){
+
+            if(lis[ctr-1]<=ip[i]){
+                //Simply add
+                lis[ctr]=ip[i];
+                ctr++;
+            }else{
+                // search and replace
+                int idx= binarySearch(ip, ip[i], 0, ctr-1);
+                lis[idx]=ip[i];
+            }
+
+        }
+        return ctr;
+    }
+
+
 
 
 
 
     public static void main(String[] args) {
         LongestIncSubsequence obj = new LongestIncSubsequence();
-        int[] ip={3,4,2,8,10,5,11};
-
+        int[] ip={3,4,2,8,10,5};
+        /*
         System.out.println(obj.getLongestIncSub(ip));
         // Completed in 8.25 mins //
 
         int[] ip2={5,4,1,2,1};
         System.out.println(obj.getLongestIncSub_nlogn(ip2));
         System.out.println(obj.getLongestIncSub(ip2));
+        */
+        System.out.println(obj.getLongestSubSeq(ip));
+        System.out.println(obj.getLongestSubSeqNlogN(ip));
     }
 
 

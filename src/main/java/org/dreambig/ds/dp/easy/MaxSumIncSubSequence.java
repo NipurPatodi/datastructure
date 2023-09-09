@@ -21,34 +21,32 @@ public class MaxSumIncSubSequence implements IQuestion {
         return null;
     }
 
-    int getMaxSumIncSubSeq_dp(int [] ip){
-        int [] res=new int[ip.length];
-        // using DP idea is simple
-        // will find max subSeq till index -1 and add curr value to it.
-        // how ever this looks like n2 solution
-        // lets see :)
-        // ip[]={3,20,4,6,7,30}
-
-
-        res[0]=ip[0];
-        res[1]=(ip[1]>ip[0])? res[0]+ip[1]:ip[1];
-
-        for ( int i=2;i<ip.length;i++){
-             if(ip[i]>=ip[i-1]){
-                 //just add to find current value
-                 res[i]=ip[i]+res[i-1];
-             }
-             else{
-
-
-             }
-
-
+    int getMaxSumOfLst(int [] nums){
+        int [] lis=new int [nums.length];
+        lis[0]=nums[0];
+        for (int i=1;i<nums.length;i++){
+            int maxSum=Integer.MIN_VALUE;
+            for (int j=i-1;j>=0;j--){
+                if(nums[j]<=nums[i]){
+                    maxSum=Math.max(lis[j],maxSum );
+                }
+            }
+            lis[i]=nums[i]+maxSum;
         }
+        int maxSum=Integer.MIN_VALUE;
+        for (int li : lis) {
+            maxSum = Math.max(maxSum, li);
+        }
+        return maxSum;
+    }
 
+    public static void main(String[] args) {
+        int[] ip={3,20,4,6,7,30};
+        MaxSumIncSubSequence obj = new MaxSumIncSubSequence();
+        System.out.println(obj.getMaxSumOfLst(ip));
+        int []ip22={500,10,20};
+        System.out.println(obj.getMaxSumOfLst(ip22));
 
-
-        return ip[ip.length-1];
     }
 
 }

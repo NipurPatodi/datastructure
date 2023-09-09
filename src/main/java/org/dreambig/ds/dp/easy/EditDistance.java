@@ -118,9 +118,32 @@ public class EditDistance implements IQuestion {
         return mem;
     }
 
+    //Revision
+    int editDistance(String s1, String s2){
+        // Create table to hold value ,and it should be n+1 m+1 size
+        int [][]cache = new int[s1.length()+1][s2.length()+1];
+        // fill 1st row and 1 column with 1-n and 1-m ???
+        for (int i=0; i<cache.length;i++)
+            cache[i][0]=i;
+        for (int i=0; i<cache[0].length;i++)
+            cache[0][i]=i;
+
+        // Now iterating
+        for (int r=1;r<=s1.length();r++){
+            for (int c=1;c<=s2.length();c++){
+                if (s1.charAt(r-1)==s2.charAt(c-1))
+                    cache[r][c]=cache[r-1][c-1];
+                else
+                    cache[r][c]=1+ Math.min(cache[r-1][c], Math.min(cache[r][c-1], cache[r-1][c-1]));
+            }
+        }
+        return cache[s1.length()][s2.length()];
+
+    }
+
     public static void main(String[] args) {
         EditDistance obj = new EditDistance();
-        System.out.println( obj.getOpsString("Cat","Cut",3,3));
+        /*System.out.println( obj.getOpsString("Cat","Cut",3,3));
         String s1="sunday";
         String s2="saturday";
 
@@ -135,7 +158,10 @@ public class EditDistance implements IQuestion {
         System.out.println("-----------------");
         System.out.println(obj.getEditDistance_tab_apr(s3,s4));
         System.out.println( obj.getOpsString(s3,s4,s3.length(),s4.length()));
-        System.out.println(obj.getEditDistance_mem_apr(s3,s4,s3.length(),s4.length(),mem2));
+        System.out.println(obj.getEditDistance_mem_apr(s3,s4,s3.length(),s4.length(),mem2));*/
+        String s1="sunday";
+        String s2="saturday";
+        System.out.println(obj.editDistance(s1,s2));
 
 
     }
