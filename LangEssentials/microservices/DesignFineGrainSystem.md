@@ -428,7 +428,86 @@ Summary
 Avoid database integration at all costs.
 • Understand the trade-offs between REST and RPC, but strongly consider REST
 as a good starting point for request/response integration.
+
 • Prefer choreography over orchestration.
+
 • Avoid breaking changes and the need to version by understanding Postel’s Law
 and using tolerant readers.
+
 • Think of user interfaces as compositional layers.
+
+
+## Chapeter 5 - Splitting monolithic services ##
+
+Concept of seams : `Seams` that is, a portion of the code that can be treated in isolation and worked on without impacting the rest of the codebase.
+
+Dynamically typed language where the IDEs have a harder time of performing refactoring - down side of python
+
+While splitting monolith we need to find domain boundries. Package can loosely be good example.
+Refactor and try to pull all dependent in similar package. if there is dependency in code e.g. fin team code is dependent on inventry team, then we need to remove this dependency.
+
+Now I have identifiec seams in my code ... but question is where to start from ?
+Answer is following approach ..
+1. Pace of Change : Code which changes alot should be first to target.
+2. Team structure: each team can work independently and own one peice. split should be made that way.
+3. Security: Split peice which deal heavy with sensitive data. we can provide additional protections to this individual service in terms of monitoring, protection of data at transit, and protection of data at rest.
+4. Technology: ML can use python over flask /clay , Java spring boot
+5. Tangled Dependencies: Code which had least dependency need to be pulled out first.
+6. Database: findout seams for which DB can be splitted.
+
+
+Repository layer: Basically this layer try to map over object to DB tables using technolgy like JPA  or hibernate.
+SchemaSpy - tool to plot DB relation.
+
+
+Example :
+**Case1**: If we have table which has foreign key reference to another table. After spliting it into two MS we would use MS call to get this table join.
+Yes it will be performance hit but as said : `Sometimes making one thing slower in exchange for other things is the right thing to do, especiallyif slower is still perfectly acceptable.`
+
+
+**Case 2**: How to take case of table which is common between two MS ??? like country_code 
+- Best approach can be to see if this data can be moved to config or enum and can be part of code
+- if it is hard to do and config are too much we can develop config service alltogeter as solution (flipper in Uber)
+
+**Case 3**: Now if two service try to share and change state of object example customer object can be updated by finance service (for refund case) and ware house (order)
+so in this cas create new service customer which take care of this shared object life cycle
+![img_4.png](img_4.png)
+
+![img_5.png](img_5.png)
+
+**How to approach with Monolithic split?**
+
+ Code split -> Db Split -> service split 
+ 
+ ![img_6.png](img_6.png)
+ 
+ **Case 4**: Transaction with service cann't be consistent at same time bit would be rither eventually consistent ( by retry on failure mechanism)
+ 
+ --- Initial state ---
+ ![img_7.png](img_7.png)
+ 
+ After spliting
+ ![img_8.png](img_8.png)
+ 
+ **Case 5** Aborting or unwinding transaction in MS eco system. for this we have to issue a compensating transaction which would bring system in consistent state. But who will do it ???
+ 
+Distributed transactions try to span multiple transactions within them, using some overall governing process called a transaction manager to orchestratethe various transactions being done by underlying systems (2PC appraoch i.e. 2 phase commit) . But this is complex to implement and takes lock in all DB involve in transaction. Second issue is transaction manager is single point of failure.
+
+
+Reporting on data in this kind of distributed environment?
+
+You could resolve this by exposing batch APIs to make reporting easier. For example,our customer service could allow you to pass a list of customer IDs to it to retrievethem in batches, or may even expose an interface that lets you page through all thecustomers.
+
+2nd approach is data pump : we could instead have the datapushed to the reporting system. An alternative option is to have a standalone program that directly accessesthe database of the service that is the source of data, and pumps it into a reportingdatabase
+ ![img_9.png](img_9.png)
+ Down sides is coupling databases. and Service owning team should also own datapump.
+ 
+ 
+ Alternative Destinations- like S3 ??
+ 
+ **Event data pump**: Service emit event on entity change and entity mapper  apply this to reporting DB
+ 
+ ![img_10.png](img_10.png)
+ 
+ Downside of this approach are that all the required information must bebroadcast as events, and it may not scale as well as a data pump for larger volumes ofdata that has the benefit of operating directly at the database level. Nonetheless, thelooser coupling and fresher data available via such an approach makes it stronglyworth considering if you are already exposing the appropriate events.
+ 
