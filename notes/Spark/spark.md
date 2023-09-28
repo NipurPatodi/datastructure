@@ -67,6 +67,23 @@ Execution flow
 2. Physical Planning: 
 ![img_5.png](img_5.png)
 
+```
+Logical Plan simply illustrates the expected output after a series of multiple transformations like join, groupBy, where, filter, etc. clauses are applied on a particular table.
+
+Physical Plan is accountable for finalizing the join type, the sequence of the execution of operations like filter, where, groupBy clause, etc.
+```
+
+**Partition Pruning**
+Partition pruning is a performance optimization that limits the number of files and partitions that Spark reads when querying. After partitioning the data, queries that match certain partition filter criteria improve performance by allowing Spark to only read a subset of the directories and files.
+Column Pruning is a technique where unnecessary columns are removed from the query processing pipeline. This can improve the performance of a query by reducing the amount of data that needs to be processed, stored in memory, and transferred over the network. The database system determines which columns are necessarily based on the query, and removes the unused columns before the query is executed.
+
+**Predicate Pushdown**
+Spark will attempt to move filtering of data as close to the source as possible to avoid loading unnecessary data into memory. Parquet and ORC files maintain various stats about each column in different chunks aof data (such as min and max values). Programs reading these files can use these indexes to determine if certain chunks, and even entire files, need to be read at all. This allows programs to potentially skip over huge portions of the data during processing.
+
+Predicate Pushdown is a technique where filters, or predicates, are pushed down to the storage layer of a database management system. This way, only the relevant data is retrieved from the storage layer, reducing the amount of data that needs to be processed and thus improving the performance of the query. By pushing down the predicates, the database system can take advantage of any indexing or other optimization that is present at the storage layer.
+
+Please find more detail on Parquet file [here](parquet.md)
+
 
 
 Spark UDFs are incredibly powerful because you can write them
@@ -109,12 +126,14 @@ for that, you can use the approx_count_distinct function:
 import org.apache.spark.sql.functions.approx_count_distinct
 df.select(approx_count_distinct("StockCode", 0.1)).show() // 3364
 # in Python
+```
 from pyspark.sql.functions import approx_count_distinct
 df.select(approx_count_distinct("StockCode", 0.1)).show() # 3364
 -- in SQL
 SELECT approx_count_distinct(StockCode, 0.1) FROM DFTABLE
-You will notice that approx_count_distinct took another parameter with which you can
-specify the maximum estimation error allowed.
+```
+
+You will notice that `approx_count_distinct` took another parameter with which you can specify the maximum estimation error allowed.
 
 
 

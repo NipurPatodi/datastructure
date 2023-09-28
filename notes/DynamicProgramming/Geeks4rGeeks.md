@@ -13,7 +13,8 @@ Where is it used ?
 Simple implementation without DP
 e.g. Fibonnaci number
 // 0, 1, 1, 2,
-```java
+
+```
 // find nth fibonnaci number
 int fib(int n){
     if (n==0|| n==1)
@@ -27,7 +28,8 @@ problem is complexity of this solution is 2^n or golden ratio to the power is ex
 Can we do better ? Yes it we can store precomputed value we will save alot and bring time complexity to `N`
 
 Implementing it using memoization
-```java
+
+```
 int fit(int n, Map<Integer, Integer>nValMap){
         if (n==0|| n==1){
             return n;
@@ -45,7 +47,8 @@ int fit(int n, Map<Integer, Integer>nValMap){
 ### Tabulation ###
 This is a bottom up solution, meaning  we will iterate from starting, compute and store. 
 we would reuse stored value to compute and proceed further
-```java
+
+```
 int fit(int n){
     if (n==0|| n==1){
         return n;
@@ -102,7 +105,7 @@ int getMaxSubSequence( String s1, String s2){
         cache[i][0]=0 // fill last column
         
     for (int i=0;i<=n;i++)
-        cache[0][n]=0 // fill last row
+        cache[0][i]=0 // fill last row
         
     for  (int i=1; i<=m;i++){
         for(int j=1;j<=n;j++){
@@ -126,7 +129,8 @@ find  count of all combination to get sum 4
 so total 4
 
 1. Naive approach
-```java
+
+```
 int getCoin(int [] coin, int idx, int currSum){
     if(idx>=coin.length|| currSum<0 )
         return 0;
@@ -143,7 +147,8 @@ int getCoinCountCombination( int[] coin, int sum){
 ```
 
 2. Using memoization
-```java
+
+```
 int getCoinMem(int [] coin, int idx, int currSum, int[][] cache){
     if(idx>=coin.length|| currSum<0 )
         return 0;
@@ -178,7 +183,7 @@ int getCoinCountCombination( int[] coin, int sum){
     e.g. SUNDAY -> SATURDAY  is  3, CAT->CUT  1 (update A) GEEK->GEEKS is 1 etc
 
 Naive approach
-```java
+```
 
 /***
  * i and j are length of s1 and s2 respectively
@@ -207,7 +212,7 @@ int editDistance(String s1, String s2){
 ```
 
 ### Tabulation based solution
-```java
+```
 int editDistance(String s1, String s2){
     // Create table to hold value and it should be n+1 m+1 size
         int [][]cache = new int[s1.length+1][s2.length+1];
@@ -235,7 +240,7 @@ int editDistance(String s1, String s2){
 ### Question: Count Longest increasing subsequence in array
 e.g. a=[3,4,2,8,10] o/p is [3,4,8,10] ans=4
 Naive approach
-```java
+```
 /***
  * i is lenght
  */
@@ -265,7 +270,7 @@ Space Complexity is Theta (n)
 Better way to do it is using Binary search ...
 Let us try it.
 
-```java
+```
 // 3,4,2,8,10
 
 int binarySearch(int[] ip, int payLoad, int s, int e){
@@ -307,7 +312,7 @@ int getLongestSubSeq(int [] ip){
 
 ### Question: WAP to find maximum sum of increasing subsequence
 
-```java
+```
 // I will use LIS approach an then find sum of it
  int getMaxSumOfLst(int [] nums){
          int [] lis=new int [nums.length];
@@ -327,13 +332,14 @@ int getLongestSubSeq(int [] ip){
         }
         return maxSum;
 }
+
 ```
 
 ### Question: WAP to find maximum length bitonic subsequnece
 ip= [1,11,2,10,4,5,2,1]
 op= 6 ( because  1,2,10,5,2,1) 
 in bitonic left and right side, both can be empty
-```java
+```
 // So Idea is simple  Take LIS from right and left and do sum of it 
 // But make sure to -1 since we would count index twise
 int getMaxLenBitonicSeq(int [] nums){
@@ -373,7 +379,7 @@ int getMaxLenBitonicSeq(int [] nums){
 ### Question Maximum cut on rode
 input rode=5 a=2 b=3, c=5
 
-```java
+```
 int maxCut(int leftOutRod, int a, int b, int c){
     if (leftOutRod <a && leftOutRod < b && leftOutRod < c)
         return -1;
@@ -391,7 +397,7 @@ int maxCut(int leftOutRod, int a, int b, int c){
 
 converting it to memoization approach
 
-```java
+```
 int maxCut(int leftOutRod, int a, int b, int c, int []cache){
     if (leftOutRod <a && leftOutRod < b && leftOutRod < c)
         return -1;

@@ -530,3 +530,84 @@ when architecting applications on AWS, keep the server components of application
 this is because browser do some thing called as pre-request which send details like domain name and method to domain b service. So domain b service block this pree flight request.
 
 to make it work b domain service need to apply "Access control allow origin" and "Access control allow mthod"
+
+### SQS : AWS Simple Queue services
+- Relieable
+- scalable 
+- Distributed Queuing service
+
+So when architecting cloud applications on AWS consider using SQS as the communication glue to bind independent components together into a fail-safe, scalable, and high performant cohesive, loosely coupled application.
+
+### Simple Work Flow service (SWF)
+
+ ![img_48.png](img_48.png)
+
+Water marking using SWF. Please note here all past of wm is run as task not as service.
+![img_49.png](img_49.png)
+
+So, as you're architecting your applications using AWS, consider using SWF to help with more complex workflows and to help keep components independent from one another.
+
+### simple notification service (SNS)
+
+SNS uses pub sub mechanism to publish notification to subs 
+![img_50.png](img_50.png)
+
+![img_51.png](img_51.png)
+
+SNS follows push approach where as SQS uses pull aproach.
+
+when architecting applications on AWS, consider taking advantage of the SNS push approach to help with communication between system components as well as for having those components work in parallel for highly and efficient scalable systems.
+
+
+### Optimizing cost
+1. Should be able to forcast spending and analyse useage
+2. Tool provided for this is simple month calculator , it helps us  in estimating spendings
+3. Once we are done with estimates planing, we need to see if our model is in track of estimates or not ... this is done by details billing report 
+- detail Billing report present data at monthly daily hourly level or at acc level or at service level or at tag level.
+
+Please note that this service is not free, we need to turn this ON.
+
+Once we enable details billing report, cost explore tool is made available for us :
+Once detailed billing is turned on, another tool, called the Cost Explorer becomes available. Cost Explorer is a tool that provides an Interactive Graphical User Interface for viewing reports, designed to make it easier to view and analyze historical spend on AWS. The data behind these reports is updated daily, allowing access to the most up to date spending information.
+
+Billing alarm is tool to avoid suprize bills at end of month. It send notification once certain billing limit is reached.
+
+4. **Budgets**: Budgets allow for the creation of custom budgets that will automatically send alerts when AWS cost are exceeded. Or are forecasted to exceed the threshold set. This is similar to setting up a billing alert, but the Budget's tool has more features, and certainly something to be aware of.
+
+5. Using IAM:  A final thing to mention when thinking about controlling and keeping tabs on resource usage is using IAM to control permissions and restrict access to starting and creating resources. By setting up rolls and groups with different permissions, the creation of resources can be forced to funnel through various departments or groups in an organization. This can help prevent unnecessary or unexpected use of resources in the first place.
+
+when architecting applications on AWS, take the time to become familiar with the available tools for modeling and monitoring cloud expenses. And take the time to set up billing or budget alerts to stay aware of costs, and to avoid any surprises.
+
+
+### Matching supply and demand
+![img_52.png](img_52.png)
+
+Ways to save in AWS configurations are
+1. Trusted advisor: 
+ unneeded resources is key to optimizing for cost. One of the best tools to use to determine if there are idle resources being paid for in an account is to use the cost optimization feature within **AWS Trusted Advisor**. It checks over 100 configurations and recommends savings. It provides information about low utilization on EC2 instances, idle load balancers, underutilized EBS volumes, unassociated elastic IP addresses, idle RDS DB instances and underutilized Amazon Redshift clusters. It's available within business or enterprise support and one of the best ways to quickly determine if your supply is outweighing your demand. 
+ 
+ 2. Type resources: So how to identify if we have picked resources of right size ? Use cloud watch. This way, actual usage can be compared to actual needs and can help determine the appropriate instance type. 
+
+ Instance types: ![img_53.png](img_53.png)
+ 
+**Important learning:**
+There is an instance type called a **T3 **which offers a good example of how understanding the different types of resources can make a difference to costs incurred. The T3s offer what is called burstable performance. Burstable performance instances provide a baseline level of CPU performance with the ability to burst above that baseline based on credits. T3 instances are for workloads that don't use the full CPU often or consistently, but occasionally need to burst. **These can be great for web servers or development servers** that don't need consistently high levels of CPU but do sometimes need and benefit significantly from having full access to very fast CPUs from time to time. Comparing the T3 against those in other families that deliver constant compute shows the cost savings compared to instances with the same or even less CPU or memory specifications. The T3 can burst up to the same capacity of the compute optimized family, so if the capabilities of a high compute instance are needed occasionally but not consistently, the T3 series is more likely to help match supply with demand and optimize for cost
+ 
+ ![img_54.png](img_54.png)
+ 
+So when architecting applications on AWS, use tools such as CloudWatch to monitor usage patterns and AWS Trusted Advisor to identify discrepancies between usage and need. And stay aware of the different types of resources available to ensure the right tools are being chosen for the jobs at hand.
+
+### Utilizing cost effective purchase 
+
+On-demand means the resource is **paid for by the second**, for every second they are running, with no upfront payment nor long-term commitment. When the instance is running, you pay for it. When it's not, you don't. Reserved instance payment provides an option for longer-term cost savings. **A certain amount is paid upfront to lock in lower hourly rates**. This can result in up to 75% cost savings over time when compared to on-demand pricing, and the scheduled/reserved options allows you to purchase based on needs that occur on a daily, weekly or monthly basis with a specified start time and duration. Spot instances provide another payment option. **A spot instance is an unused EC2 instance that can be requested for use at steep discounts,** discounts that can be up to 90% off on-demand pricing. When dealing with non-stateful workloads or if jobs can tolerate being interrupted and don't have specific fixed timelines within which they must complete, taking advantage of spot instances will likely result in the best cost performance. With spot instances, excess availability compute capacity within AWS is put on a marketplace for bidding. With spot bidding, the per-hour pricing fluctuates depending on the supply and demand at a given moment. A bid is placed for use of this compute capacity, and **when the market hits or drops below the bid, compute capacity becomes available**. From that point on, billing is at the market price, never exceeding the initial bid. For example, if I were to bid $1 and the current market price is $.20, I'd only pay $.20. Similarly, if the market rates rise again above the bid, the compute capacity becomes unavailable. As the name suggests, it's spotty. The trade-off is significant cost savings.
+
+ ![img_55.png](img_55.png)
+ 
+  ![img_56.png](img_56.png)
+  
+  ```
+  To recap on the savings potential, if the compute requirements are predictable and will remain consistent for at least a year or possibly up to three years, 40 to 75% savings can be realized by moving to reserved instance pricing, and if your workloads can tolerate starting and stopping and some instance flexibility, savings of up to 90% can be realized by going with spot instance 
+  ```
+  
+** let AWS handle as much of the technical administrative work as possible**. There is little need to employ expensive database administrators just to have them be doing backups or software updates or other server administrative tasks. That's something AWS can provide. AWS provides many managed services that eliminate the need to handle many tedious administrative tasks, allowing your team to stay lean and focused. 
+ 
